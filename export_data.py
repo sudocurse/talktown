@@ -1,14 +1,14 @@
 import json
 import time
 from simulation import Simulation
-
+import sys
 
 # Generate a town!
 sim = Simulation()  # Objects of the class Simulation are Talk of the Town simulations
 # Simulate from the date specified as the start of town generation to the date specified
 # as its terminus; both of these dates can be set in config/basic_config.py
 try:
-    sim.establish_setting()  # This is the worldgen procedure
+    sim.establish_setting(logger=sys.stdout)  # This is the worldgen procedure
     town = sim.town
 except KeyboardInterrupt:  # Enter "ctrl+C" (a keyboard interrupt) to end worldgen early
     # In the case of keyboard interrupt, we need to tie up a few loose ends

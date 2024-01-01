@@ -60,7 +60,7 @@ class Simulation(object):
         """Return a random company in the town of this simulation instance."""
         return random.choice(list(self.town.companies))
 
-    def recent_events(self):
+    def recent_events(self, logger):
         """Pretty-print the last five simulated events (for debugging purposes)."""
         for recent_event in self.events[-5:]:
             logger.write(recent_event)
