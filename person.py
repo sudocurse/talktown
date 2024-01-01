@@ -1,16 +1,16 @@
 import random
 import heapq
-from corpora import Names
-import life_event
-from name import Name
-from personality import Personality
-import occupation
-from face import Face
-from mind import Mind
-from routine import Routine
-from whereabouts import Whereabouts
-from relationship import Acquaintance
-import face
+from .corpora import Names
+from . import life_event
+from .name import Name
+from .personality import Personality
+from . import occupation
+from .face import Face
+from .mind import Mind
+from .routine import Routine
+from .whereabouts import Whereabouts
+from .relationship import Acquaintance
+from . import face
 
 
 class Person(object):
@@ -707,10 +707,10 @@ class Person(object):
         spark_threshold_for_being_captivated = self.sim.config.spark_threshold_for_being_captivated
         return [p for p in self.relationships if self.relationships[p].spark > spark_threshold_for_being_captivated]
 
-    def recount_life_history(self):
+    def recount_life_history(self, logger):
         """Print out the major life events in this person's simulated life."""
         for life_event in self.life_events:
-            print life_event
+            logger.write(life_event)
 
     def get_feature(self, feature_type):
         """Return this person's feature of the given type."""
@@ -2157,7 +2157,7 @@ class PersonExNihilo(Person):
         """Simulate from marriage to the present day for children potentially being born."""
         config = self.sim.config
         # Simulate sex (and thus potentially birth) in marriage thus far
-        for year in xrange(self.marriage.year, self.sim.true_year+1):
+        for year in range(self.marriage.year, self.sim.true_year+1):
             # If someone is pregnant and due this year, have them give birth
             if self.pregnant or self.spouse.pregnant:
                 pregnant_one = self if self.pregnant else self.spouse

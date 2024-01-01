@@ -1,10 +1,8 @@
 import sys
 import time
 import datetime
-from business import *
-from config import Config
-from town import *
-from drama import StoryRecognizer
+from .town import *
+from .drama import StoryRecognizer
 
 
 class Simulation(object):
@@ -65,7 +63,7 @@ class Simulation(object):
     def recent_events(self):
         """Pretty-print the last five simulated events (for debugging purposes)."""
         for recent_event in self.events[-5:]:
-            print recent_event
+            logger.write(recent_event)
 
     def establish_setting(self, logger):
         """Establish the town that will be simulated."""
@@ -77,7 +75,7 @@ class Simulation(object):
             self.town = Town(self)
         # Have families establish farms on all of the town tracts except one,
         # which will be a cemetery
-        for i in xrange(len(self.town.tracts)-2):
+        for i in range(len(self.town.tracts)-2):
             farmer = PersonExNihilo(sim=self, job_opportunity_impetus=Farmer, spouse_already_generated=None)
             Farm(owner=farmer)
             # farmer.move_into_the_town(hiring_that_instigated_move=farmer.occupation)  # SHOULD BE ABLE TO DELETE THIS
@@ -160,7 +158,7 @@ class Simulation(object):
 
     def simulate(self, n_timesteps=1, logger=sys.stdout):
         """Simulate activity in this town for the given number of timesteps."""
-        for i in xrange(n_timesteps):
+        for i in range(n_timesteps):
             # Do some basic bookkeeping, regardless of whether the timestep will be simulated
             self.advance_time()
             self._progress_town_businesses()
@@ -470,28 +468,28 @@ class Simulation(object):
             if random.random() < self.config.chance_employed_adult_will_move_out_of_parents_on_simulated_timestep:
                 person.move_out_of_parents()
 
-    def find(self, name):
+    def find(self, name, logger):
         """Return person living in this town with that name."""
         if any(p for p in self.town.residents if p.name == name):
             people_named_this = [p for p in self.town.residents if p.name == name]
             if len(people_named_this) > 1:
-                print '\nWarning: Multiple {} residents are named {}; returning a complete list\n'.format(
+                logger.write('\nWarning: Multiple {} residents are named {}; returning a complete list\n'.format(
                     self.town.name, name
-                )
+                ))
                 return people_named_this
             else:
                 return people_named_this[0]
         else:
             raise Exception('There is no one in {} named {}'.format(self.town.name, name))
 
-    def find_deceased(self, name):
+    def find_deceased(self, name, logger):
         """Return deceased person with that name."""
         if any(p for p in self.town.deceased if p.name == name):
             people_named_this = [p for p in self.town.deceased if p.name == name]
             if len(people_named_this) > 1:
-                print '\nWarning: Multiple {} residents are named {}; returning a complete list\n'.format(
+                logger.write('\nWarning: Multiple {} residents are named {}; returning a complete list\n'.format(
                     self.town.name, name
-                )
+                ))
                 return people_named_this
             else:
                 return people_named_this[0]

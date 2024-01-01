@@ -241,6 +241,11 @@ class Index(_Index):
 #SOME TESTING
 if __name__ == "__main__":
     import random, time
+    import logging as logger
+
+    #setup logging to stdout
+    logger.basicConfig(level=logger.INFO, format='%(message)s')
+
     
     class Item:
         def __init__(self, x, y):
@@ -257,9 +262,9 @@ if __name__ == "__main__":
         spindex.insert(item, item.bbox)
 
     #test intersection
-    print("testing hit")
+    logger.write("testing hit")
     testitem = (51,51,86,86)
     t = time.time()
     matches = spindex.intersect(testitem)
-    print((time.time()-t, " seconds"))
+    logger.write((time.time()-t, " seconds"))
 

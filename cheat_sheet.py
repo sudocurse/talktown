@@ -9,7 +9,7 @@
 # Besides that, here's some new functions that may be useful.
 
 
-def list_attributes(entity):
+def list_attributes(entity, logger):
 	"""Print out a list of attributes that an entity has.
 
 	This will specifically print out a list of attributes that the object passed for
@@ -54,15 +54,13 @@ def list_attributes(entity):
 		years_i_lived_here
 	"""
 	for attribute in sorted(vars(entity).keys()):  # Prints them out in alphabetical order
-		print(attribute)
+		logger.write(attribute)
 
 
-def outline_physical_description(person):
+def outline_physical_description(person, logger):
 	"""Outline a person's physical description."""
-	print(person.description)
-
-
-def outline_personality(person):
+	logger.write(person.description)
+def outline_personality(person, logger):
 	"""Outline a person's physical description."""
 	str = "\nFive-factor personality model of {}:\n\n".format(person.name)
 	str += "\tOpenness: {}{}\n".format(
@@ -90,10 +88,10 @@ def outline_personality(person):
 		'' if not person.personality.n.inherited_from else 
 		' (takes after {})'.format(person.personality.n.inherited_from.name)
 	)
-	print(str)
+	logger.write(str)
 
 
-def outline_love_life(person):
+def outline_love_life(person, logger):
 	"""Outline a person's love life, including their strongest love interest and anyone else they are
 	very interested in romantically.
 	"""
@@ -122,10 +120,10 @@ def outline_love_life(person):
 		)
 	else:
 		str += "\tOther love interests: none\n"
-	print(str)
+	logger.write(str)
 
 
-def outline_family(person):
+def outline_family(person, logger):
 	"""Outline a person's family members."""
 	str = "\nFamily of {}:\n".format(person.name)
 	str += "\tSpouse: {}\n".format(person.spouse.name if person.spouse else 'none')
@@ -142,17 +140,17 @@ def outline_family(person):
 	str += "\tNieces: {}\n".format(', '.join(x.name for x in person.nieces) if person.nieces else 'none')
 	str += "\tNephews: {}\n".format(', '.join(x.name for x in person.nephews) if person.nephews else 'none')
 	str += "\tCousins: {}\n".format(', '.join(x.name for x in person.cousins) if person.cousins else 'none')
-	print(str)
+	logger.write(str)
 
 
-def list_ancestors(person):
+def list_ancestors(person, logger):
 	"""List all of a person's ancestors."""
 	for ancestor in person.ancestors:
-			print(ancestor)
+			logger.write(ancestor)
 
 
-def list_work_history(person):
+def list_work_history(person, logger):
 	"""List out a person's occupational history."""
 	for o in person.occupations:
-			print(o)
+			logger.write(o)
 

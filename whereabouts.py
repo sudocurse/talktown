@@ -23,13 +23,13 @@ class Whereabouts(object):
         timestep_key = (ordinal_date, day_or_night_bit)
         self.date[timestep_key] = Whereabout(person=self.person, occasion=occasion)
 
-    def recount(self):
+    def recount(self, logger):
         """Pretty-print this person's entire whereabouts."""
         timesteps = list(self.date.keys())
         timesteps.sort(key=lambda step: (step[0], step[1]))
         for timestep in timesteps:
             whereabout = self.date[timestep]
-            print('{},\t{}:\t{}\t({})'.format(
+            logger.write('{},\t{}:\t{}\t({})'.format(
                 whereabout.date[7:] if whereabout.time_of_day == 'day' else whereabout.date[9:],
                 whereabout.time_of_day, whereabout.location.name, whereabout.occasion
             ))
