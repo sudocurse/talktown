@@ -1,9 +1,10 @@
 from business import *
-
+from occupation import *
 
 class BusinessesConfig(object):
     """Configuration parameters related to businesses."""
     # Company naming
+
     chance_company_gets_named_after_owner = 0.5
     # Companies deciding where to locate themselves
     function_to_determine_company_preference_for_local_population = (

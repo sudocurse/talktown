@@ -1,16 +1,16 @@
 import random
 import heapq
-from .corpora import Names
-from . import life_event
-from .name import Name
-from .personality import Personality
-from . import occupation
-from .face import Face
-from .mind import Mind
-from .routine import Routine
-from .whereabouts import Whereabouts
-from .relationship import Acquaintance
-from . import face
+from corpora import Names
+import life_event
+from name import Name
+from personality import Personality
+import occupation
+from face import Face
+from mind import Mind
+from routine import Routine
+from whereabouts import Whereabouts
+from relationship import Acquaintance
+import face
 
 
 class Person(object):

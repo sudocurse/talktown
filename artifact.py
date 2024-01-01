@@ -1,6 +1,5 @@
 import random
-from .corpora import GravestoneDetails
-
+from corpora import GravestoneDetails
 
 class Artifact(object):
     """A base class that all artifact subclasses inherit from."""

@@ -1,9 +1,11 @@
 import sys
 import time
 import datetime
-from .town import *
-from .drama import StoryRecognizer
-
+from town import *
+from drama import StoryRecognizer
+from config import Config
+from person import PersonExNihilo
+from business import Farm, CoalMine, Quarry, ApartmentComplex
 
 class Simulation(object):
     """A simulation instance."""

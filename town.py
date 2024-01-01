@@ -1,11 +1,8 @@
 import random
-from .business import *
-from .residence import *
-from .occupation import *
-from . import pyqtree
+from occupation import *
+import pyqtree
 from random import gauss,randrange
-from .corpora import Names
-from .config import Config
+from corpora import Names
 import heapq
 
 
@@ -705,6 +702,11 @@ class Parcel(object):
 
     def add_neighbor(self, other):
         self.neighbors.append(other)
+
+    def __lt__(self, other):
+        if not isinstance(other, Parcel):
+            return NotImplemented
+        return self.id < other.id
 
 
 class Block(object):

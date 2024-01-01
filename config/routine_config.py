@@ -95,10 +95,14 @@ class RoutineConfig(object):
     }
     # Do not alter these two
     temp_probabilities = fit_probability_distribution(who_someone_visiting_will_visit_relative_frequencies)
-    who_someone_visiting_will_visit_probabilities = tuple([
-        ((temp_probabilities[relation][0], temp_probabilities[relation][1]), relation)
-        for relation in temp_probabilities
-    ])
+
+    who_someone_visiting_will_visit_probabilities = []
+    for relation in temp_probabilities:
+        prob = ((temp_probabilities[relation][0], temp_probabilities[relation][1]), relation)
+        who_someone_visiting_will_visit_probabilities.append(prob)
+
+    who_someone_visiting_will_visit_probabilities = tuple(who_someone_visiting_will_visit_probabilities)
+
     # Miscellaneous: locking doors -- each building in a town (objects of Business and DwellingPlace
     # subclasses) will have a 'locked' attribute specifying whether the door of that building is
     # currently locked; this could be used to prevent players from entering locked doors (and indeed

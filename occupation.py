@@ -1,5 +1,5 @@
 import string
-from .life_event import *
+from life_event import *
 
 
 class Occupation(object):

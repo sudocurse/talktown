@@ -1,17 +1,17 @@
-from .appearance_config import AppearanceConfig
-from .artifact_config import ArtifactConfig
-from .basic_config import BasicConfig
-from .businesses_config import BusinessesConfig
-from .life_cycle_config import LifeCycleConfig
-from .marriage_config import MarriageConfig
-from .misc_character_config import MiscellaneousCharacterConfig
-from .misc_decision_making_config import MiscellaneousCharacterDecisionMakingConfig
-from .personality_config import PersonalityConfig
-from .routine_config import RoutineConfig
-from .salience_config import SalienceConfig
-from .social_sim_config import SocialSimConfig
-from .story_recognition_config import StoryRecognitionConfig
-from .town_generation_details_config import TownGenerationDetailsConfig
+from config.appearance_config import AppearanceConfig
+from config.artifact_config import ArtifactConfig
+from config.basic_config import BasicConfig
+from config.businesses_config import BusinessesConfig
+from config.life_cycle_config import LifeCycleConfig
+from config.marriage_config import MarriageConfig
+from config.misc_character_config import MiscellaneousCharacterConfig
+from config.misc_decision_making_config import MiscellaneousCharacterDecisionMakingConfig
+from config.personality_config import PersonalityConfig
+from config.routine_config import RoutineConfig
+from config.salience_config import SalienceConfig
+from config.social_sim_config import SocialSimConfig
+from config.story_recognition_config import StoryRecognitionConfig
+from config.town_generation_details_config import TownGenerationDetailsConfig
 
 ALL_CONFIG_FILES = [
     AppearanceConfig, ArtifactConfig, BasicConfig, BusinessesConfig, LifeCycleConfig, MarriageConfig,

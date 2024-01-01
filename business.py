@@ -1,7 +1,7 @@
 import heapq
-from .occupation import *
-from .person import PersonExNihilo
-from .residence import *
+from occupation import *
+from person import PersonExNihilo
+from residence import *
 
 # Objects of a business class represents both the company itself and the building
 # at which it is headquartered. All business subclasses inherit generic attributes

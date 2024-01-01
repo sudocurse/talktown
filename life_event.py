@@ -1,9 +1,9 @@
 import random
-from .name import Name
-from .person import Person
-from .corpora import Names
-from .residence import House
-from .artifact import Gravestone
+from name import Name
+from person import Person
+from corpora import Names
+from residence import House
+from artifact import Gravestone
 
 
 # TODO HOW TO GIVE RETCONNED EVENTS PROPERLY ORDERED EVENT NUMBERS?
