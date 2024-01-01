@@ -848,6 +848,7 @@ class Tract(Lot):
         super(Tract, self).__init__(town)
 
 
+
 class PriorityQueue:
     """A helper class used when generating a town layout."""
 

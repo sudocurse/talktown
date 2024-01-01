@@ -5,7 +5,8 @@ from town import *
 from drama import StoryRecognizer
 from config import Config
 from person import PersonExNihilo
-from business import Farm, CoalMine, Quarry, ApartmentComplex
+from business import Farm, CoalMine, Quarry, ApartmentComplex, Cemetery, Business
+
 
 class Simulation(object):
     """A simulation instance."""
@@ -171,13 +172,13 @@ class Simulation(object):
             # Write out samples from the event stream to stdout
             try:
                 recent_event = random.choice(self.events[-10:])
-                recent_event_str = str(recent_event)[:94]
-                logger.write('\r' + recent_event_str.ljust(94))
+                recent_event_str = str(recent_event) # [:94]
+                logger.write(recent_event_str) # .ljust(94))
                 logger.flush()
             except (NameError, IndexError):  # This won't work for the first iteration of the loop
                 pass
-        logger.write('\r{}'.format(' '*94))  # Clear out the last sampled event written to stdout
-        logger.write('\rWrapping up...')
+        # logger.write('\r{}'.format(' '*94))  # Clear out the last sampled event written to stdout
+        logger.write('Wrapping up...')
 
     def advance_time(self):
         """Advance time of day and date, if it's a new day."""

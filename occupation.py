@@ -68,7 +68,10 @@ class Occupation(object):
         """Generate a properly formatted vocation string for this occupation."""
         class_name = self.__class__.__name__
         try:
-            camel_case_char = next(letter for letter in class_name[1:] if letter in string.uppercase)
+            import string
+
+            camel_case_char = next(letter for letter in class_name[1:] if letter in string.ascii_uppercase)
+
             index_of_camel_case_char = class_name.index(camel_case_char)
             if index_of_camel_case_char == 0:
                 index_of_camel_case_char = class_name[1:].index(camel_case_char) + 1

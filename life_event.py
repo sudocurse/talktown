@@ -619,7 +619,7 @@ class Divorce(Event):
             )
             if spouse2 is spouse1.love_interest:
                 new_love_interest = max(spouse1.relationships, key=lambda r: spouse1.relationships[r].spark)
-                if spouse1.relationships[new_love_interest] > 0:
+                if spouse1.relationships[new_love_interest]:
                     spouse1.love_interest = new_love_interest
                     spouse1.spark_of_love_interest = spouse1.relationships[new_love_interest].spark
         if random.random() < config.chance_a_divorcee_falls_out_of_love:
@@ -632,7 +632,7 @@ class Divorce(Event):
             )
             if spouse1 is spouse2.love_interest:
                 new_love_interest = max(spouse2.relationships, key=lambda r: spouse2.relationships[r].spark)
-                if spouse2.relationships[new_love_interest] > 0:
+                if spouse2.relationships[new_love_interest]:
                     spouse2.love_interest = new_love_interest
                     spouse2.spark_of_love_interest = spouse2.relationships[new_love_interest].spark
 

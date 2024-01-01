@@ -374,7 +374,7 @@ class Business(object):
             else:
                 choice = top_three_choices[2]
         elif lot_scores:
-            choice = max(lot_scores)
+            choice = max(lot_scores, key=lot_scores.get)
         else:
             raise Exception("A company attempted to secure a lot in town when in fact none are vacant.")
         return choice
@@ -554,7 +554,7 @@ class Business(object):
             else:
                 chosen_candidate = top_three_choices[2]
         else:
-            chosen_candidate = max(candidate_scores)
+            chosen_candidate = max(candidate_scores, key=candidate_scores.get)
         return chosen_candidate
 
     def _find_candidate_from_outside_the_town(self, occupation_of_need):

@@ -1605,7 +1605,7 @@ class Person(object):
                     else:
                         choice = top_three_choices[2]
                 else:
-                    choice = max(potential_hire_scores)
+                    choice = max(potential_hire_scores, key=potential_hire_scores.get)
         else:
             # This should only ever happen at the very beginning of a town's history where all
             # business types haven't been built in town yet
