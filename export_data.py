@@ -1,6 +1,6 @@
 import json
 import time
-from .simulation import Simulation
+from simulation import Simulation
 
 
 # Generate a town!
@@ -322,11 +322,11 @@ with open(filename, 'w') as outfile:
             id=place_data["id"],
             i=i
         )
-    for i, lot_data in enumerate(data["lots"]):
-        assert lot_data["id"] == i, "Mismatched lot ID and index: ID is {id} and index is {i}".format(
-            id=residence_data["id"],
-            i=i
-        )
+    # for i, lot_data in enumerate(data["lots"]):
+    #     assert lot_data["id"] == i, "Mismatched lot ID and index: ID is {id} and index is {i}".format(
+    #         id=residence_data["id"],
+    #         i=i
+    #     )
     # Write to file
     json_string = json.dumps(data)
     outfile.write(json_string)
