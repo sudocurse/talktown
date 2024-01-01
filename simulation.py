@@ -1,10 +1,10 @@
 import sys
 import time
 import datetime
-from business import *
-from config import Config
-from town import *
-from drama import StoryRecognizer
+from .business import *
+from .config import Config
+from .town import *
+from .drama import StoryRecognizer
 
 
 class Simulation(object):
@@ -65,19 +65,19 @@ class Simulation(object):
     def recent_events(self):
         """Pretty-print the last five simulated events (for debugging purposes)."""
         for recent_event in self.events[-5:]:
-            print recent_event
+            logger.write(recent_event)
 
-    def establish_setting(self):
+    def establish_setting(self,logger):
         """Establish the town that will be simulated."""
         # Generate a town plan with at least two tracts
-        print "Generating a town..."
+        logger.write("Generating a town...")
         time.sleep(0.7)
         self.town = Town(self)
         while len(self.town.tracts) < 2:
             self.town = Town(self)
         # Have families establish farms on all of the town tracts except one,
         # which will be a cemetery
-        for i in xrange(len(self.town.tracts)-2):
+        for i in range(len(self.town.tracts)-2):
             farmer = PersonExNihilo(sim=self, job_opportunity_impetus=Farmer, spouse_already_generated=None)
             Farm(owner=farmer)
             # farmer.move_into_the_town(hiring_that_instigated_move=farmer.occupation)  # SHOULD BE ABLE TO DELETE THIS
@@ -104,9 +104,9 @@ class Simulation(object):
         # Set the town's 'settlers' attribute
         self.town.settlers = set(self.town.residents)
         # Now simulate until the specified date that worldgen ends
-        print "Simulating {n} years of history...".format(
+        logger.write("Simulating {n} years of history...".format(
             n=self.config.date_worldgen_ends[0] - self.config.date_worldgen_begins[0]
-        )
+        ))
         time.sleep(1.2)
         n_days_until_worldgen_ends = self.ordinal_date_that_worldgen_ends - self.ordinal_date
         n_timesteps_until_worldgen_ends = n_days_until_worldgen_ends * 2
@@ -158,9 +158,9 @@ class Simulation(object):
         )
         return date
 
-    def simulate(self, n_timesteps=1):
+    def simulate(self, n_timesteps=1, logger=sys.stdout):
         """Simulate activity in this town for the given number of timesteps."""
-        for i in xrange(n_timesteps):
+        for i in range(n_timesteps):
             # Do some basic bookkeeping, regardless of whether the timestep will be simulated
             self.advance_time()
             self._progress_town_businesses()
@@ -172,12 +172,12 @@ class Simulation(object):
             try:
                 recent_event = random.choice(self.events[-10:])
                 recent_event_str = str(recent_event)[:94]
-                sys.stdout.write('\r' + recent_event_str.ljust(94))
-                sys.stdout.flush()
+                logger.write('\r' + recent_event_str.ljust(94))
+                logger.flush()
             except (NameError, IndexError):  # This won't work for the first iteration of the loop
                 pass
-        sys.stdout.write('\r{}'.format(' '*94))  # Clear out the last sampled event written to stdout
-        sys.stdout.write('\rWrapping up...')
+        logger.write('\r{}'.format(' '*94))  # Clear out the last sampled event written to stdout
+        logger.write('\rWrapping up...')
 
     def advance_time(self):
         """Advance time of day and date, if it's a new day."""
@@ -475,9 +475,9 @@ class Simulation(object):
         if any(p for p in self.town.residents if p.name == name):
             people_named_this = [p for p in self.town.residents if p.name == name]
             if len(people_named_this) > 1:
-                print '\nWarning: Multiple {} residents are named {}; returning a complete list\n'.format(
+                logger.write('\nWarning: Multiple {} residents are named {}; returning a complete list\n'.format(
                     self.town.name, name
-                )
+                ))
                 return people_named_this
             else:
                 return people_named_this[0]
@@ -489,9 +489,9 @@ class Simulation(object):
         if any(p for p in self.town.deceased if p.name == name):
             people_named_this = [p for p in self.town.deceased if p.name == name]
             if len(people_named_this) > 1:
-                print '\nWarning: Multiple {} residents are named {}; returning a complete list\n'.format(
+                logger.write('\nWarning: Multiple {} residents are named {}; returning a complete list\n'.format(
                     self.town.name, name
-                )
+                ))
                 return people_named_this
             else:
                 return people_named_this[0]

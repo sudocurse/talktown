@@ -25,14 +25,14 @@ class Whereabouts(object):
 
     def recount(self):
         """Pretty-print this person's entire whereabouts."""
-        timesteps = self.date.keys()
+        timesteps = list(self.date.keys())
         timesteps.sort(key=lambda step: (step[0], step[1]))
         for timestep in timesteps:
             whereabout = self.date[timestep]
-            print '{},\t{}:\t{}\t({})'.format(
+            print('{},\t{}:\t{}\t({})'.format(
                 whereabout.date[7:] if whereabout.time_of_day == 'day' else whereabout.date[9:],
                 whereabout.time_of_day, whereabout.location.name, whereabout.occasion
-            )
+            ))
 
     @property
     def current_occasion(self):

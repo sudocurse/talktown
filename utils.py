@@ -5,7 +5,7 @@ def fit_probability_distribution(relative_frequencies_dictionary):
     """
     frequencies_sum = float(sum(relative_frequencies_dictionary.values()))
     probabilities = {}
-    for k in relative_frequencies_dictionary.keys():
+    for k in list(relative_frequencies_dictionary.keys()):
         frequency = relative_frequencies_dictionary[k]
         probability = frequency / frequencies_sum
         probabilities[k] = probability

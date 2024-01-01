@@ -1,6 +1,6 @@
 import json
 import time
-from simulation import Simulation
+from .simulation import Simulation
 
 
 # Generate a town!

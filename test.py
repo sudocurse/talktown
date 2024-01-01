@@ -1,7 +1,7 @@
 import sys
 import time
-from simulation import Simulation
-
+from .simulation import Simulation
+import logging as logger
 
 # Generate a town!
 start_time = time.time()
@@ -13,24 +13,24 @@ try:
     town = sim.town
 except KeyboardInterrupt:  # Enter "ctrl+C" (a keyboard interrupt) to end worldgen early
     # In the case of keyboard interrupt, we need to tie up a few loose ends
-    sys.stdout.write('\r{}'.format(' ' * 94))  # Clear out the last sampled event written to stdout
-    sys.stdout.write('\rWrapping up...')
+    logger.write('\r{}'.format(' ' * 94))  # Clear out the last sampled event written to stdout
+    logger.write('\rWrapping up...')
     sim.advance_time()
     for person in list(sim.town.residents):
         person.routine.enact()
 # Town generation was successful, so print out some basic info about the town
-print "\nAfter {time_elapsed}s, town generation was successful!".format(
+print("\nAfter {time_elapsed}s, town generation was successful!".format(
     time_elapsed=int(time.time()-start_time)
-)
+))
 # Print out the town, population, and date
-print "\nIt is now the {date}, in the town of {town}, pop. {population}.\n".format(
+print("\nIt is now the {date}, in the town of {town}, pop. {population}.\n".format(
     date=sim.date[0].lower() + sim.date[1:],
     town=sim.town.name,
     population=sim.town.population
-)
+))
 # Start excavating nuggets of dramatic intrigue from the raw emergent material produced
 # during the simulation of the town's history
-print "Excavating nuggets of dramatic intrigue..."
+print("Excavating nuggets of dramatic intrigue...")
 sim.story_recognizer.excavate()
 # Save all this material to global variables, for convenience
 unrequited_love_cases = sim.story_recognizer.unrequited_love_cases
@@ -55,50 +55,50 @@ business_owner_rivalries = sim.story_recognizer.business_owner_rivalries
 
 def outline_businesses():
     """Outline all the businesses, past and present, in this town."""
-    print '\nFormer businesses in {town}:'.format(town=sim.town.name)
+    print('\nFormer businesses in {town}:'.format(town=sim.town.name))
     for c in sim.town.former_companies:
-        print '\t{}'.format(c)
-    print '\nCurrent businesses in {town}:'.format(town=sim.town.name)
+        print('\t{}'.format(c))
+    print('\nCurrent businesses in {town}:'.format(town=sim.town.name))
     for c in sim.town.companies:
-        print '\t{}'.format(c)
+        print('\t{}'.format(c))
 
 
 def outline_character_locations():
     """Outline the locations in town, and who is currently at each one."""
     for location in sim.town.companies|sim.town.dwelling_places:
-        print location
+        print(location)
         if not location.people_here_now:
-            print '\tno one here'
+            print('\tno one here')
         else:
             for character in location.people_here_now:
                 if character.routine.working:
-                    print "\t{} (working as {})".format(character, character.routine.occasion, character.occupation.vocation)
+                    print("\t{} (working as {})".format(character, character.routine.occasion, character.occupation.vocation))
                 else:
-                    print "\t{} ({})".format(character, character.routine.occasion)
+                    print("\t{} ({})".format(character, character.routine.occasion))
 
 
 def outline_gravestones():
     """Print out all the gravestones in the town."""
     for d in sim.town.deceased:
-        print d.gravestone.description
+        print(d.gravestone.description)
 
 
 def outline_character_social_network(person):
     """Print out a character's relationships to everyone else in the town."""
     for resident in sim.town.residents:
-        print person.relation_to_me(resident)
+        print(person.relation_to_me(resident))
 
 
 def outline_relationship(person, other_person):
     """Outline the unidirectional relationships between these two."""
     if other_person not in person.relationships:
-        print None
+        print(None)
     else:
-        print "\t{}'s relationship toward {}:".format(person, other_person)
-        print person.relationships[other_person].outline()
-        print '\n'
-        print "\t{}'s relationship toward {}:".format(other_person, person)
-        print other_person.relationships[person].outline()
+        print("\t{}'s relationship toward {}:".format(person, other_person))
+        print(person.relationships[other_person].outline())
+        print('\n')
+        print("\t{}'s relationship toward {}:".format(other_person, person))
+        print(other_person.relationships[person].outline())
 
 def list_attributes(entity):
 	"""Print out a list of attributes that an entity has.
@@ -145,12 +145,12 @@ def list_attributes(entity):
 		years_i_lived_here
 	"""
 	for attribute in sorted(vars(entity).keys()):  # Prints them out in alphabetical order
-		print attribute
+		print(attribute)
 
 
 def outline_physical_description(person):
 	"""Outline a person's physical description."""
-	print person.description
+	print(person.description)
 
 
 def outline_personality(person):
@@ -181,7 +181,7 @@ def outline_personality(person):
 		'' if not person.personality.n.inherited_from else 
 		' (takes after {})'.format(person.personality.n.inherited_from.name)
 	)
-	print str
+	print(str)
 
 
 def outline_love_life(person):
@@ -213,7 +213,7 @@ def outline_love_life(person):
 		)
 	else:
 		str += "\tOther love interests: none\n"
-	print str
+	print(str)
 
 
 def outline_family(person):
@@ -233,17 +233,17 @@ def outline_family(person):
 	str += "\tNieces: {}\n".format(', '.join(x.name for x in person.nieces) if person.nieces else 'none')
 	str += "\tNephews: {}\n".format(', '.join(x.name for x in person.nephews) if person.nephews else 'none')
 	str += "\tCousins: {}\n".format(', '.join(x.name for x in person.cousins) if person.cousins else 'none')
-	print str
+	print(str)
 
 
 def list_ancestors(person):
 	"""List all of a person's ancestors."""
 	for ancestor in person.ancestors:
-			print ancestor
+			print(ancestor)
 
 
 def list_work_history(person):
 	"""List out a person's occupational history."""
 	for o in person.occupations:
-			print o
+			print(o)
         

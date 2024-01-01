@@ -54,12 +54,12 @@ def list_attributes(entity):
 		years_i_lived_here
 	"""
 	for attribute in sorted(vars(entity).keys()):  # Prints them out in alphabetical order
-		print attribute
+		print(attribute)
 
 
 def outline_physical_description(person):
 	"""Outline a person's physical description."""
-	print person.description
+	print(person.description)
 
 
 def outline_personality(person):
@@ -90,7 +90,7 @@ def outline_personality(person):
 		'' if not person.personality.n.inherited_from else 
 		' (takes after {})'.format(person.personality.n.inherited_from.name)
 	)
-	print str
+	print(str)
 
 
 def outline_love_life(person):
@@ -122,7 +122,7 @@ def outline_love_life(person):
 		)
 	else:
 		str += "\tOther love interests: none\n"
-	print str
+	print(str)
 
 
 def outline_family(person):
@@ -142,17 +142,17 @@ def outline_family(person):
 	str += "\tNieces: {}\n".format(', '.join(x.name for x in person.nieces) if person.nieces else 'none')
 	str += "\tNephews: {}\n".format(', '.join(x.name for x in person.nephews) if person.nephews else 'none')
 	str += "\tCousins: {}\n".format(', '.join(x.name for x in person.cousins) if person.cousins else 'none')
-	print str
+	print(str)
 
 
 def list_ancestors(person):
 	"""List all of a person's ancestors."""
 	for ancestor in person.ancestors:
-			print ancestor
+			print(ancestor)
 
 
 def list_work_history(person):
 	"""List out a person's occupational history."""
 	for o in person.occupations:
-			print o
+			print(o)
 

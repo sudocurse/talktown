@@ -1,11 +1,11 @@
 import random
-from business import *
-from residence import *
-from occupation import *
-import pyqtree
+from .business import *
+from .residence import *
+from .occupation import *
+from . import pyqtree
 from random import gauss,randrange
-from corpora import Names
-from config import Config
+from .corpora import Names
+from .config import Config
 import heapq
 
 
@@ -690,7 +690,7 @@ class Parcel(object):
         house_numbers = []
         house_number_increment = int(100.0 / n_buildings)
         even_or_odd = 0 if side_of_street == "E" or side_of_street == "N" else 1
-        for i in xrange(n_buildings):
+        for i in range(n_buildings):
             base_house_number = (i * house_number_increment) - 1
             house_number = base_house_number + int(random.random() * house_number_increment)
             if house_number % 2 == (1-even_or_odd):
